@@ -9,6 +9,8 @@ import com.example.datafromapitestingapp.databinding.ActivityMainBinding;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.List;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -58,23 +60,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getDate() {
-        Call<DateHijri> call = jsonPlaceHolderAPI.getDate();
+        Call <DateHijri> call = jsonPlaceHolderAPI.getDate();
 
         call.enqueue(new Callback<DateHijri>() {
             @Override
             public void onResponse(Call<DateHijri> call, Response<DateHijri> response) {
                 if (!response.isSuccessful()) {
-                    mainBinding.textResult.setText("Code: " + response.code());
-                    Log.d("Tag", "Code: " + response.code());
+                    mainBinding.textResult.setText("Code " + response.code());
                     return;
                 }
-                mainBinding.textResult.setText("Code: " + response.code());
+
+                DateHijri posts = response.body();
+
+//                for (DateHijri post : posts) {
+                    String content = "";
+                    content += "ID: " + posts.getDate() + " \n";
+
+                    mainBinding.textResult.append(content);
+
+
             }
 
             @Override
             public void onFailure(Call<DateHijri> call, Throwable t) {
-                mainBinding.textResult.setText(t.getMessage());
-                Log.d("Tag", t.getMessage());
                 mainBinding.textResult.setText(t.getMessage());
             }
         });
