@@ -1,14 +1,11 @@
 package com.example.datafromapitestingapp;
 
-import com.google.gson.annotations.SerializedName;
 
 public class Hijri {
 
 
     private String date;
-    @SerializedName("format")
     private String format;
-    @SerializedName("day")
     private String day;
 
     public String getDate() {
